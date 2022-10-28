@@ -1,0 +1,810 @@
+[
+    {
+        "id": "ca8a7dbb2dfc4ddc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "452a28f3e88a5772",
+        "type": "arduino in",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "pin": "3",
+        "state": "INPUT",
+        "arduino": "280c5632645b0e22",
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "13b084109f31a74c"
+            ]
+        ]
+    },
+    {
+        "id": "34d6c2249dccd277",
+        "type": "arduino out",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "pin": "11",
+        "state": "OUTPUT",
+        "arduino": "ad0d4748c3ed5910",
+        "x": 1050,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "2a58fcd58582aa70",
+        "type": "aedes broker",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "localbroker",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "13b084109f31a74c",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "{\"id\":\"ArduinoUNO\",\"pin\":3,\"value\":\"false\"}",
+                "tot": "json"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "{\"id\":\"Arduino\",\"pin\":3,\"value\":\"true\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "0642efaef9bf2a15"
+            ]
+        ]
+    },
+    {
+        "id": "0642efaef9bf2a15",
+        "type": "mqtt out",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "topic": "portaSensor/presenca",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a74fa0115cd10678",
+        "x": 620,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1230e0758df91465",
+        "type": "mqtt in",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "topic": "portaSensor/presenca",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "a74fa0115cd10678",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 540,
+        "wires": [
+            [
+                "8337aaedbabe8855"
+            ]
+        ]
+    },
+    {
+        "id": "8337aaedbabe8855",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "property": "payload.pin",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 450,
+        "y": 540,
+        "wires": [
+            [
+                "a042b1cf1c597da9",
+                "3a2fa2c67709d392"
+            ]
+        ]
+    },
+    {
+        "id": "a042b1cf1c597da9",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "True",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "1c8aee6147320006",
+                "1abf3335a12bc4ba"
+            ]
+        ]
+    },
+    {
+        "id": "3a2fa2c67709d392",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "False",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "5e6c4c4ebb2dbdd5",
+                "3c54362b0b3d68b0"
+            ]
+        ]
+    },
+    {
+        "id": "1c8aee6147320006",
+        "type": "debug",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "5e6c4c4ebb2dbdd5",
+        "type": "debug",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "1abf3335a12bc4ba",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 440,
+        "wires": [
+            [
+                "34d6c2249dccd277",
+                "b8052744348cf02e"
+            ]
+        ]
+    },
+    {
+        "id": "3c54362b0b3d68b0",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 640,
+        "wires": [
+            [
+                "34d6c2249dccd277",
+                "b8052744348cf02e"
+            ]
+        ]
+    },
+    {
+        "id": "b80580a06320bfbc",
+        "type": "ui_switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "label": "switch",
+        "tooltip": "",
+        "group": "924efb40fda93ebb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "payload",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "{\"id\":\"ArduinoUNO\",\"pin\":3,\"value\":\"true\"}",
+        "onvalueType": "json",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "{\"id\":\"Arduino\",\"pin\":3,\"value\":\"false\"}",
+        "offvalueType": "json",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 210,
+        "y": 700,
+        "wires": [
+            [
+                "b6c2137e03806b78"
+            ]
+        ]
+    },
+    {
+        "id": "b6c2137e03806b78",
+        "type": "mqtt out",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "topic": "portaSensor/presenca",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a74fa0115cd10678",
+        "x": 420,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "b8052744348cf02e",
+        "type": "ui_gauge",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "group": "924efb40fda93ebb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "LED",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#ec0404",
+            "#43e000",
+            "#1bcbee"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1050,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "7dc57a3558a29f14",
+        "type": "arduino in",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "pin": "3",
+        "state": "INPUT",
+        "arduino": "c716157cb5eb084c",
+        "x": 190,
+        "y": 880,
+        "wires": [
+            [
+                "ac1d52773565096c"
+            ]
+        ]
+    },
+    {
+        "id": "ac1d52773565096c",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "{\"id\":\"ArduinoUNO\",\"pin\":3,\"value\":\"false\"}",
+                "tot": "json"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "{\"id\":\"Arduino\",\"pin\":3,\"value\":\"true\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 880,
+        "wires": [
+            [
+                "e212e323181b11c3"
+            ]
+        ]
+    },
+    {
+        "id": "e212e323181b11c3",
+        "type": "mqtt out",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "topic": "portabtn/Botao",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a74fa0115cd10678",
+        "x": 640,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "f4d28e715ea5fdce",
+        "type": "arduino out",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "ad0d4748c3ed5910",
+        "x": 1010,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "529fce4e344a0194",
+        "type": "mqtt in",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "topic": "portabtn/Botao",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "a74fa0115cd10678",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 1060,
+        "wires": [
+            [
+                "75d93cb4f7c93acf"
+            ]
+        ]
+    },
+    {
+        "id": "75d93cb4f7c93acf",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "property": "payload.pin",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 1060,
+        "wires": [
+            [
+                "6a4415e30fd9399e",
+                "ed1f39fabd49d6a6"
+            ]
+        ]
+    },
+    {
+        "id": "6a4415e30fd9399e",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "True",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 1020,
+        "wires": [
+            [
+                "c552727c49c8691d",
+                "0250066d5736b44d"
+            ]
+        ]
+    },
+    {
+        "id": "ed1f39fabd49d6a6",
+        "type": "switch",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "False",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 1080,
+        "wires": [
+            [
+                "b98c5ab3baeb830c",
+                "0f4de827f119fa65"
+            ]
+        ]
+    },
+    {
+        "id": "c552727c49c8691d",
+        "type": "debug",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "b98c5ab3baeb830c",
+        "type": "debug",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "0250066d5736b44d",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 960,
+        "wires": [
+            [
+                "f4d28e715ea5fdce",
+                "c1c358bd603e9387"
+            ]
+        ]
+    },
+    {
+        "id": "0f4de827f119fa65",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 1160,
+        "wires": [
+            [
+                "f4d28e715ea5fdce",
+                "c1c358bd603e9387"
+            ]
+        ]
+    },
+    {
+        "id": "c1c358bd603e9387",
+        "type": "ui_gauge",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "group": "924efb40fda93ebb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Buzzer",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#ec04a2",
+            "#00e0b4",
+            "#5a1bee"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1020,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "d2adce67ce865548",
+        "type": "arduino in",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "pin": "3",
+        "state": "INPUT",
+        "arduino": "c716157cb5eb084c",
+        "x": 130,
+        "y": 1300,
+        "wires": [
+            [
+                "d89e222b2552bfb8"
+            ]
+        ]
+    },
+    {
+        "id": "d89e222b2552bfb8",
+        "type": "change",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "{\"value\":\"false\"}",
+                "tot": "json"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "{\"value\":\"true\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 1300,
+        "wires": [
+            [
+                "c9da9e1dcc7077bf"
+            ]
+        ]
+    },
+    {
+        "id": "c9da9e1dcc7077bf",
+        "type": "debug",
+        "z": "ca8a7dbb2dfc4ddc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "280c5632645b0e22",
+        "type": "arduino-board",
+        "device": "COM4"
+    },
+    {
+        "id": "ad0d4748c3ed5910",
+        "type": "arduino-board",
+        "device": "COM5"
+    },
+    {
+        "id": "a74fa0115cd10678",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "924efb40fda93ebb",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "39672d4533ad72b5",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c716157cb5eb084c",
+        "type": "arduino-board",
+        "device": "COM6"
+    },
+    {
+        "id": "39672d4533ad72b5",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
